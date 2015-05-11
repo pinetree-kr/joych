@@ -1,0 +1,26 @@
+<style>
+.angular-google-map-container { height: 400px; }
+</style>
+<div class="modal-header">
+	<h4 class="modal-title">
+	Map - Station
+	</h4>
+</div>
+<div class="modal-body">
+	<ui-gmap-google-map
+		center="map.center"
+		zoom="map.zoom"
+		events="map.events"
+		options="map.options">
+		<ui-gmap-marker
+			coords="marker.coords"
+			options="marker.options"
+			events="marker.events"
+			idKey="marker.id">
+		</ui-gmap-marker>
+	</ui-gmap-google-map>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+	<button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!(marker.coords.latitude && marker.coords.longitude)">Save</button>
+</div>

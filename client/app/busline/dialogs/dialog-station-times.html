@@ -1,0 +1,21 @@
+<style>
+
+</style>
+<div class="modal-header">
+	<h4 class="modal-title">
+	Station Times - {{name}}
+	</h4>
+</div>
+<div class="modal-body">
+	<div class="form">
+		<tabset>
+			<tab ng-repeat="name in parts.names track by $index" heading="{{name || $index+1}}">
+				<timepicker ng-model="times[$index]" hour-step="1" minute-step="1" show-meridian="false"></timepicker>
+			</tab>
+		</tabset>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+	<button type="button" class="btn btn-primary" ng-click="save()">Save</button>
+</div>

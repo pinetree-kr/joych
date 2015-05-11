@@ -1,0 +1,29 @@
+<style>
+.angular-google-map-container { height: 400px; }
+</style>
+<div class="modal-header">
+	<h4 class="modal-title">
+	Map - Routes
+	</h4>
+</div>
+<div class="modal-body">
+	<ui-gmap-google-map
+		center="map.center"
+		zoom="map.zoom"
+		events="map.events"
+		options="map.options">
+		<ui-gmap-polyline
+			path="line.routes"
+			draggable="true"
+			editable="true"
+			geodesic="true"
+			stroke="map.lineStyle"
+			events="map.routeEvents"
+			fit="false">
+		</ui-gmap-polyline>
+	</ui-gmap-google-map>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+	<button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="!(line.routes.length>1)">Save</button>
+</div>

@@ -1,0 +1,26 @@
+<style>
+
+</style>
+<div class="modal-header">
+	<h4 class="modal-title">
+	Time Parts Info.
+	</h4>
+</div>
+<div class="modal-body">
+	<div class="form">
+		<div class="form-group">
+			<label for="numbers">Numbers <input type="checkbox" ng-model="parts.hasName"/></label>
+			<input type="number" min="1" max="20" class="form-control" name="numbers" ng-model="parts.numbers" required/>
+		</div>
+		<div class="form-group" ng-show="parts.hasName">
+			<label>Names</label>
+			<div class="form-group" ng-repeat="name in getArray(parts.numbers) track by $index">
+				<input type="text" class="form-control" placeholder="{{$index+1}}" ng-model="parts.names[$index]"/>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+	<button type="button" class="btn btn-primary" ng-click="save()">Save</button>
+</div>

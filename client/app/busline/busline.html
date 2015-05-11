@@ -1,0 +1,25 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+	<div class="row">
+    <div class="col-sm-12">
+      <h2>Bus Lines</h2>
+      <a class="btn btn-inverse btn-sm btn-success" ng-show="isAdmin()" ng-click="add()">
+        Add Line
+      </a>
+  	</div>
+  	<div class="col-sm-12">
+		  <ul class="list-group">
+		    <li class="list-group-item" ng-repeat="line in lines">
+		    	<i ng-repeat="day in line.week">{{day}} </i><br>
+	        <label ng-show="line.local">[완행]</label>
+	        <label ng-show="!line.local">[직행]</label>
+	        <strong>{{line.name}}</strong><span ng-show="line.driver"> - {{line.driver}}</span><br>
+	        <span class="text-muted">Time</label>
+	        <a ng-click="delete(line)" class="trash" ng-show="isAdmin()"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+	        <a ng-click="modify(line)" ng-show="isAdmin()"><span class="glyphicon glyphicon-pencil pull-right"></span></a>
+		    </li>
+		  </ul>
+  	</div>
+  </div>
+</div>

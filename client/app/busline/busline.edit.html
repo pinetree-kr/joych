@@ -1,0 +1,130 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+	<div class="row">
+    <div class="col-sm-12">
+      <h2>Edit Bus Line</h2>
+  	</div>
+  	<div class="col-sm-12">
+      <form class="form" name="form" ng-submit="submit(form)" novalidate>
+        <div class="form-group" ng-class="{'has-success': form.local.$valid && submitted,
+          'has-error': form.local.$invalid && submitted}">
+          <input type="radio" name="local" ng-model="line.local" ng-value="true">Local
+          <input type="radio" name="local" ng-model="line.local" ng-value="false">Express
+          <p class="help-block" ng-show="form.local.$error.required && submitted">
+            A line type is required
+          </p>
+        </div>
+        <div class="form-group" ng-class="{'has-success': line.week.length>0 && submitted,
+          'has-error': line.week.length<1 && submitted}">
+          <span ng-repeat="day in weekdays">
+            <input type="checkbox" checklist-model="line.week" checklist-value="day">{{day}}</span>
+          </span>
+          <p class="help-block" ng-show="line.week.length<1 && submitted">
+            Selected days are required
+          </p>
+        <div class="form-group" ng-class="{'has-success': form.name.$valid && submitted,
+          'has-error': form.name.$invalid && submitted}">
+          <label>Line Name</label>
+          <input type="text" name="name" class="form-control" ng-model="line.name" required/>
+          <p class="help-block" ng-show="form.name.$error.required && submitted">
+            A line name is required
+          </p>
+        </div>
+        <div class="form-group">
+          <label>Driver</label>
+          <input type="text" name="driver" class="form-control" ng-model="line.driver"/>
+        </div>
+        <div class="form-group">
+          <label>Routes</label>
+          <input type="text" name="routes" class="form-control" ng-readonly="true" ng-model="line.route" placeholder="Routes" ng-click="openMapRoutes(line.routes)"/>
+        </div>
+        <div class="form-group">
+          <label>Stations</label>
+          <button type="button" class="btn btn-link btn-xs" ng-click="addStation()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+          <!--
+          <div class="form-group form-group-sm">
+            <label class="sr-only">Time</label>
+            <pagination boundary-links="true" total-items="line.partnumber" ng-model="currentPart" max-size="5" rotate="false" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+          </div>
+          -->
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th class="form-inline">
+                  <div class="form-group form-group-sm">
+                    <label for="sharp">#</label>
+                  </div>
+                </th>
+                <th class="form-inline">
+                  <div class="form-group form-group-sm">
+                    <label for="name">Name</label>
+                  </div>
+                </th>
+                <th class="form-inline">
+                  <div class="form-group form-group-sm">
+                    <label for="parts" class="s2r-only">Time Part</label>
+                    <input type="number" min="1" max="20" class="form-control input-sm" name="parts" ng-model="line.parts.numbers" ng-click="openTimePartInfo()" style="border:none;" ng-readonly="true" required/>
+                  </div>
+                </th>
+                <th class="form-inline">
+                  <div class="form-group form-group-sm">
+                    <label for="location">location</label>
+                  </div>
+                </th>
+                <th class="form-inline">
+                  <center>
+                    <div class="form-group form-group-sm">
+                      <label for="misc">misc</label>
+                    </div>
+                  </center>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                ng-class="{'has-success': stationsForm.stname.$valid && stationsForm.time.$valid && stationsForm.coords.$valid && submitted,'has-error': (stationsForm.stname.$invalid || stationsForm.time.$invalid || stationsForm.coords.$invalid) && submitted}"
+                ng-repeat="station in line.stations track by $index" ng-form="stationsForm">
+                <th>{{$index+1}}</th>
+                <td class="form-inline">
+                  <div class="form-group form-group-sm">
+                    <label class="sr-only">stname</label>
+                    <input type="text" class="form-control input-sm" name="stname" ng-model="station.name" placeholder="Station Name" required/>
+                  </div>
+                </td>
+                <td class="form-inline">
+                  <div class="form-group form-group-sm">
+                    <label class="sr-only">time</label>
+                    <input type="text" class="form-control input-sm" name="times" ng-model="station.getTimes" ng-click="openStationTimes(line.parts, station)" ng-readonly="true" required/>
+                    <!--
+                    <input type="text" class="form-control input-sm" name="time" ng-model="station.time" ng-pattern="/^\d{2}:\d{2}$/" placeholder="HH:MM" required/>
+                    -->
+                  </div>
+                </td>
+                <td class="form-inline">
+                  <div class="form-group form-group-sm">
+                    <label class="sr-only">coords</label>
+                    <input type="text" class="form-control input-sm" name="coords" ng-readonly="true" ng-model="station.location" placeholder="Geocode" ng-click="openMapStation(station)" required/>
+                  </div>
+                </td>
+                <td class="form-inline">
+                  <center>
+                    <div class="form-group form-group-sm">
+                      <label class="sr-only">misc</label>
+                      <button class="btn btn-warning btn-xs glyphicon glyphicon-minus" type="button" ng-click="removeStation($index)"></button>
+                    </div>
+                  </center>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn btn-inverse btn-sm btn-success" type="submit" ng-show="isAdmin()">
+          {{line._id?'Apply':'Create'}}
+        </button>
+      </form>
+  	</div>
+  </div>
+</div>
